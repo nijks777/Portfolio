@@ -216,9 +216,9 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1, duration: 0.6 }}
-                  className="absolute -bottom-4 left-1/2 -translate-x-1/2 transform"
+                  className="absolute -bottom-4 left-1/2 -translate-x-1/2 transform whitespace-nowrap"
                 >
-                  <div className="flex items-center gap-2 rounded-full bg-white px-4 py-2 sm:px-6 sm:py-3 shadow-xl ring-1 ring-gray-200">
+                  <div className="flex items-center gap-2 rounded-full bg-white px-4 py-2 sm:px-5 sm:py-2.5 shadow-xl ring-1 ring-gray-200">
                     <motion.div
                       animate={{
                         scale: [1, 1.2, 1],
@@ -228,9 +228,9 @@ export default function Home() {
                         repeat: Infinity,
                         ease: 'easeInOut',
                       }}
-                      className="h-3 w-3 rounded-full bg-green-500"
+                      className="h-3 w-3 rounded-full bg-green-500 flex-shrink-0"
                     />
-                    <span className="text-xs sm:text-sm font-medium text-gray-900">
+                    <span className="text-xs sm:text-sm font-medium text-gray-900 whitespace-nowrap">
                       Available for opportunities
                     </span>
                   </div>
