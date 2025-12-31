@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
-import { Mail, Download, FileText, FolderKanban, User } from 'lucide-react';
+import { Mail, Download, FileText, FolderKanban, User, GraduationCap } from 'lucide-react';
 import EmailModal from '@/components/EmailModal';
 
 interface NavLink {
@@ -17,6 +17,7 @@ interface NavLink {
 const navLinks: NavLink[] = [
   { href: '/resume', label: 'Resume', icon: FileText },
   { href: '/projects', label: 'Projects', icon: FolderKanban },
+  { href: '/learnings', label: 'Learnings', icon: GraduationCap },
   { href: '/about', label: 'About me', icon: User },
 ];
 
