@@ -2,40 +2,51 @@ export const presetResponses: Record<string, { content: string; action?: string 
   "Tell me about Jalaj's experience": {
     content: `💼 **Professional Experience**
 
-Jalaj has worked at **Tech Mahindra** as an **Associate Developer** for **1 year and 10 months**.
+Jalaj is a **Software Developer** with **2 years 6 months** of professional experience building applications that run at scale.
+
+**🏢 Sigma Staffing Solutions** — *Software Developer*
+*January 2026 – Present*
+
+Owns **ProcessPulse**, their HRMS platform serving **20+ clients** — built the payroll engine, leave management and onsite attendance checking systems end to end. Also built **Job24**, their job portal, from scratch with granular role-based permissioning and designed to scale. Ships everything end to end, including hosting and the Ubuntu/Linux VPS infrastructure.
+
+**🏢 Tech Mahindra** — *Associate Developer*
+*February 2024 – December 2025 (1 year 10 months)*
+
+Worked across FastAPI and ASP.NET MVC applications, built WhatsApp chatbots, and delivered generative AI features in production.
 
 **Key Areas of Work:**
 
-🚀 **FastAPI** - Building high-performance backend APIs
+🚀 **FastAPI & Python** - Designing high-performance APIs
 
-🌐 **ASP.NET MVC** - Developing enterprise web applications
+🏗️ **Scalable System Design** - Architecting systems built to handle scale
 
-💬 **WhatsApp Chatbots** - Creating automated messaging solutions
+🌐 **.NET / ASP.NET MVC** - Enterprise web applications
 
-🤖 **Generative AI Applications** - Implementing cutting-edge AI solutions
+🐧 **VPS & Cloud Infrastructure** - Hosting on Ubuntu/Linux servers
 
-💻 **Frontend Development** - Working on various website interfaces
-
-His experience spans full-stack development with a strong focus on modern technologies and AI integration.`,
+🤖 **GenAI & Agentic AI** - Next-gen AI-powered applications`,
   },
 
   "What are his technical skills?": {
     content: `⚡ **Technical Skills**
 
-**💻 Programming Languages & System Design**
-Java • C# • Python • HLD • LLD
+**🔧 Backend**
+FastAPI • Python • .NET / ASP.NET • Flask • RESTful API Development
 
-**🔧 Backend Frameworks**
-ASP.NET • Flask • FastAPI • RESTful API Development
+**🗄️ Databases**
+PostgreSQL • MS SQL • MongoDB
 
-**🎨 Frontend Technologies**
-HTML • CSS • JavaScript • React.js • Next.js • Razor Pages
+**🏗️ Architecture**
+Backend Principles • System Design • HLD • LLD • Scalable Systems
 
-**☁️ Database & Cloud**
-MS SQL • MongoDB • PostgreSQL • Docker • GitHub • Microsoft Azure • VPS Hosting • AWS
+**🐧 Infrastructure & Deployment**
+VPS Hosting (Ubuntu/Linux) • Docker • Microsoft Azure • AWS • GitHub
 
 **🤖 AI & ML**
-LangChain • LangGraph • LangSmith • RAG • Generative AI • Agentic AI • Machine Learning • MCP`,
+GenAI • Agentic AI • LangChain • LangGraph • LangSmith • RAG • MCP
+
+**💻 Languages**
+Python • C# • Java • JavaScript`,
   },
 
   "Can I see his resume?": {
@@ -71,9 +82,15 @@ These achievements demonstrate his commitment to innovation, research, and deliv
   "What projects has Jalaj built?": {
     content: `🚀 **Projects Portfolio**
 
-Jalaj has built several impressive projects spanning full-stack development, AI/ML, and enterprise applications.
+**Professional work at Sigma Staffing Solutions:**
 
-Click the button below to explore detailed case studies, technologies used, and live demos of his work!`,
+📊 **ProcessPulse** — HRMS platform serving 20+ clients, with payroll, leave management and onsite attendance. Available on web, Play Store and App Store.
+
+💼 **Job24** — job portal built from scratch, scalable, with granular role-based permissioning.
+
+**Plus personal projects** across AI/RAG systems, games and web apps.
+
+Click the button below to explore the full list with live links!`,
     action: "projects",
   },
 };

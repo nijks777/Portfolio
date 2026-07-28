@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 interface ChatIconProps {
   isOpen: boolean;
@@ -11,12 +11,12 @@ const ChatIcon = ({ isOpen, onClick }: ChatIconProps) => {
   return (
     <motion.button
       onClick={onClick}
-      className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
+      className="fixed right-5 bottom-5 z-50 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-orange-500 to-orange-600 shadow-lg transition-shadow hover:shadow-xl sm:right-6 sm:bottom-6 sm:h-16 sm:w-16"
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
-      transition={{ type: "spring", stiffness: 260, damping: 20 }}
+      transition={{ type: 'spring', stiffness: 260, damping: 20 }}
     >
       <motion.div
         animate={{ rotate: isOpen ? 180 : 0 }}
@@ -25,7 +25,7 @@ const ChatIcon = ({ isOpen, onClick }: ChatIconProps) => {
         {isOpen ? (
           // Close icon
           <svg
-            className="w-8 h-8 text-white"
+            className="h-8 w-8 text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -40,7 +40,7 @@ const ChatIcon = ({ isOpen, onClick }: ChatIconProps) => {
         ) : (
           // Chat icon
           <svg
-            className="w-8 h-8 text-white"
+            className="h-8 w-8 text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -58,7 +58,7 @@ const ChatIcon = ({ isOpen, onClick }: ChatIconProps) => {
       {/* Notification dot (optional - can be shown when there's a new message) */}
       {!isOpen && (
         <motion.div
-          className="absolute top-0 right-0 w-4 h-4 bg-red-500 rounded-full border-2 border-white"
+          className="absolute top-0 right-0 h-4 w-4 rounded-full border-2 border-white bg-red-500"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.5 }}

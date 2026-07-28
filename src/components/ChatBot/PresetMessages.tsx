@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { PresetMessage } from "./types";
+import { motion } from 'framer-motion';
+import { PresetMessage } from './types';
 
 interface PresetMessagesProps {
   onSelectMessage: (message: string) => void;
@@ -9,57 +9,57 @@ interface PresetMessagesProps {
 
 const presetMessages: PresetMessage[] = [
   {
-    id: "1",
+    id: '1',
     label: "Tell me about Jalaj's experience",
     message: "Tell me about Jalaj's experience",
-    icon: "👤",
-    category: "portfolio",
+    icon: '👤',
+    category: 'portfolio',
   },
   {
-    id: "2",
-    label: "What are his technical skills?",
-    message: "What are his technical skills?",
-    icon: "⚡",
-    category: "skills",
+    id: '2',
+    label: 'What are his technical skills?',
+    message: 'What are his technical skills?',
+    icon: '⚡',
+    category: 'skills',
   },
   {
-    id: "3",
-    label: "Can I see his resume?",
-    message: "Can I see his resume?",
-    icon: "📄",
-    category: "portfolio",
+    id: '3',
+    label: 'Can I see his resume?',
+    message: 'Can I see his resume?',
+    icon: '📄',
+    category: 'portfolio',
   },
   {
-    id: "4",
-    label: "Is he available for work?",
-    message: "Is he available for work?",
-    icon: "💼",
-    category: "contact",
+    id: '4',
+    label: 'Is he available for work?',
+    message: 'Is he available for work?',
+    icon: '💼',
+    category: 'contact',
   },
   {
-    id: "5",
+    id: '5',
     label: "What are Jalaj's achievements?",
     message: "What are Jalaj's achievements?",
-    icon: "🏆",
-    category: "portfolio",
+    icon: '🏆',
+    category: 'portfolio',
   },
   {
-    id: "6",
-    label: "Show me his projects",
-    message: "What projects has Jalaj built?",
-    icon: "🚀",
-    category: "projects",
+    id: '6',
+    label: 'Show me his projects',
+    message: 'What projects has Jalaj built?',
+    icon: '🚀',
+    category: 'projects',
   },
 ];
 
 const PresetMessages = ({ onSelectMessage }: PresetMessagesProps) => {
   return (
-    <div className="grid grid-cols-2 gap-2 w-full max-w-sm">
+    <div className="grid w-full max-w-sm grid-cols-2 gap-2">
       {presetMessages.map((preset, index) => (
         <motion.button
           key={preset.id}
           onClick={() => onSelectMessage(preset.message)}
-          className="p-3 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-blue-400 dark:hover:border-purple-500 transition-all text-left group cursor-pointer"
+          className="bg-accent-soft border-border hover:border-accent group cursor-pointer rounded-lg border p-3 text-left transition-all"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.1 }}
@@ -67,11 +67,11 @@ const PresetMessages = ({ onSelectMessage }: PresetMessagesProps) => {
           whileTap={{ scale: 0.98 }}
         >
           <div className="flex items-start gap-2">
-            <span className="text-2xl group-hover:scale-110 transition-transform">
+            <span className="text-2xl transition-transform group-hover:scale-110">
               {preset.icon}
             </span>
             <div className="flex-1">
-              <p className="text-xs font-medium text-gray-800 dark:text-gray-200 line-clamp-2">
+              <p className="text-fg-strong line-clamp-2 text-xs font-medium">
                 {preset.label}
               </p>
             </div>

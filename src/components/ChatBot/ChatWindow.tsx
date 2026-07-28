@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
-import MessageList from "./MessageList";
-import PresetMessages from "./PresetMessages";
-import { Message } from "./types";
+import { motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import MessageList from './MessageList';
+import PresetMessages from './PresetMessages';
+import { Message } from './types';
 
 interface ChatWindowProps {
   messages: Message[];
@@ -25,7 +25,7 @@ const ChatWindow = ({
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
 
   return (
@@ -34,12 +34,12 @@ const ChatWindow = ({
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 20, scale: 0.95 }}
       transition={{ duration: 0.2 }}
-      className="fixed bottom-24 right-6 z-40 w-[400px] h-[600px] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200 dark:border-gray-700"
+      className="border-border bg-surface fixed right-4 bottom-24 left-4 z-40 flex h-[min(600px,calc(100dvh-8rem))] flex-col overflow-hidden rounded-2xl border shadow-2xl sm:right-6 sm:left-auto sm:w-[400px]"
     >
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-500 to-purple-600">
+      <div className="border-border flex items-center justify-between border-b bg-gradient-to-r from-orange-500 to-orange-600 p-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+          <div className="bg-surface flex h-10 w-10 items-center justify-center rounded-full">
             <span className="text-2xl">🤖</span>
           </div>
           <div>
@@ -51,11 +51,11 @@ const ChatWindow = ({
           {messages.length > 0 && (
             <button
               onClick={onClearHistory}
-              className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+              className="rounded-lg p-2 transition-colors hover:bg-white/10"
               title="Clear chat history"
             >
               <svg
-                className="w-5 h-5 text-white"
+                className="h-5 w-5 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -71,10 +71,10 @@ const ChatWindow = ({
           )}
           <button
             onClick={onClose}
-            className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+            className="rounded-lg p-2 transition-colors hover:bg-white/10"
           >
             <svg
-              className="w-5 h-5 text-white"
+              className="h-5 w-5 text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -91,15 +91,16 @@ const ChatWindow = ({
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 space-y-4 overflow-y-auto p-4">
         {messages.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center text-center">
-            <div className="text-6xl mb-4">👋</div>
-            <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
+          <div className="flex h-full flex-col items-center justify-center text-center">
+            <div className="mb-4 text-6xl">👋</div>
+            <h4 className="text-fg-strong mb-2 text-lg font-semibold">
               Welcome!
             </h4>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
-              I'm here to help you learn more about Jalaj's work and experience.
+            <p className="text-muted mb-6 text-sm">
+              I&apos;m here to help you learn more about Jalaj&apos;s work and
+              experience.
             </p>
             <PresetMessages onSelectMessage={onSendMessage} />
           </div>

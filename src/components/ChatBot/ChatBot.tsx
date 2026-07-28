@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { AnimatePresence } from "framer-motion";
-import ChatIcon from "./ChatIcon";
-import ChatWindow from "./ChatWindow";
-import { Message } from "./types";
-import { presetResponses } from "./presetResponses";
+import { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import ChatIcon from './ChatIcon';
+import ChatWindow from './ChatWindow';
+import { Message } from './types';
+import { presetResponses } from './presetResponses';
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,7 +16,7 @@ const ChatBot = () => {
     // Add user message
     const userMessage: Message = {
       id: Date.now().toString(),
-      role: "user",
+      role: 'user',
       content,
       timestamp: new Date().toISOString(),
     };
@@ -30,12 +30,16 @@ const ChatBot = () => {
 
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        role: "assistant",
+        role: 'assistant',
         content: presetResponse
           ? presetResponse.content
-          : "Thanks for your message! The backend API will be connected in Step 4 for custom responses.",
+          : 'Thanks for your message! The backend API will be connected in Step 4 for custom responses.',
         timestamp: new Date().toISOString(),
-        action: presetResponse?.action as "contact" | "view-resume" | "projects" | undefined,
+        action: presetResponse?.action as
+          | 'contact'
+          | 'view-resume'
+          | 'projects'
+          | undefined,
       };
 
       setMessages((prev) => [...prev, botMessage]);
@@ -45,14 +49,14 @@ const ChatBot = () => {
 
   const handleClearHistory = () => {
     setMessages([]);
-    localStorage.removeItem("chatbot-messages");
+    localStorage.removeItem('chatbot-messages');
   };
 
   const handleClose = () => {
     setIsOpen(false);
     // Clear messages when closing so it shows preset questions on reopen
     setMessages([]);
-    localStorage.removeItem("chatbot-messages");
+    localStorage.removeItem('chatbot-messages');
   };
 
   return (

@@ -5,7 +5,13 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
-import { Mail, Download, FileText, FolderKanban, User, GraduationCap } from 'lucide-react';
+import {
+  Download,
+  FileText,
+  FolderKanban,
+  User,
+  GraduationCap,
+} from 'lucide-react';
 import EmailModal from '@/components/EmailModal';
 
 interface NavLink {
@@ -87,35 +93,162 @@ export default function NavMenu() {
 
   return (
     <>
-      <div className="flex items-center gap-6 rounded-full bg-white px-8 py-3 shadow-lg ring-1 ring-gray-100 transition-shadow hover:shadow-xl">
+      <div className="bg-surface ring-border flex items-center gap-5 rounded-full px-6 py-2.5 shadow-lg ring-1 transition-shadow hover:shadow-xl xl:gap-6 xl:px-8">
         {navLinks.map((link, index) => (
           <motion.div
             key={link.href}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 + index * 0.1, duration: 0.3 }}
-            className="relative"
+            // flex (not the default block) so every item's box is exactly its
+            // content height. As inline elements, the <button> and <a> sat on
+            // their own text baselines and reserved descender space, which left
+            // Resume sitting higher than its neighbours.
+            className="relative flex items-center"
           >
             {link.label === 'Resume' ? (
-            <div
-              className="relative"
-              onMouseEnter={() => setShowResumeButtons(true)}
-              onMouseLeave={() => setShowResumeButtons(false)}
-            >
-              <button
-                onClick={() => setShowResumeButtons(!showResumeButtons)}
+              <div
+                className="relative flex items-center"
+                onMouseEnter={() => setShowResumeButtons(true)}
+                onMouseLeave={() => setShowResumeButtons(false)}
+              >
+                <button
+                  onClick={() => setShowResumeButtons(!showResumeButtons)}
+                  className={cn(
+                    'group relative flex cursor-pointer items-center text-sm font-medium transition-all active:scale-95',
+                    pathname === link.href
+                      ? 'text-accent font-semibold'
+                      : 'text-fg hover:text-fg-strong'
+                  )}
+                >
+                  <span className="relative flex items-center gap-1.5">
+                    {link.icon && (
+                      <motion.div
+                        whileHover={{ y: -2 }}
+                        transition={{
+                          type: 'spring',
+                          stiffness: 400,
+                          damping: 10,
+                        }}
+                      >
+                        <link.icon className="h-4 w-4" />
+                      </motion.div>
+                    )}
+                    {link.label}
+                    {pathname === link.href ? (
+                      <motion.span
+                        layoutId="activeNav"
+                        className="absolute -bottom-1 left-0 h-0.5 w-full bg-gradient-to-r from-orange-500 to-orange-600"
+                        transition={{
+                          type: 'spring',
+                          stiffness: 380,
+                          damping: 30,
+                        }}
+                      />
+                    ) : (
+                      <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gradient-to-r from-orange-500 to-orange-600 transition-all duration-300 group-hover:w-full" />
+                    )}
+                  </span>
+                </button>
+
+                <AnimatePresence>
+                  {showResumeButtons && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      // pt-3 is a transparent hover bridge. With mt-2 the gap
+                      // between trigger and panel was a dead zone, so moving the
+                      // pointer down fired onMouseLeave and closed the dropdown.
+                      className="absolute top-full left-1/2 z-50 -translate-x-1/2 pt-3"
+                    >
+                      <div className="bg-surface ring-border flex flex-col gap-2 rounded-lg p-3 shadow-xl ring-1">
+                        {/* View Resume Button */}
+                        <a
+                          href="/resume"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setShowResumeButtons(false)}
+                          className="group relative cursor-pointer overflow-hidden rounded-md bg-gradient-to-r from-orange-500 to-orange-600 px-4 py-2 text-sm font-medium whitespace-nowrap text-white shadow-md transition-all hover:scale-105 hover:shadow-lg active:scale-95"
+                        >
+                          <span className="relative z-10 flex items-center gap-2">
+                            <motion.div
+                              animate={{
+                                scale: [1, 1.1, 1],
+                              }}
+                              transition={{
+                                duration: 1.5,
+                                repeat: Infinity,
+                                ease: 'easeInOut',
+                              }}
+                            >
+                              <FileText className="h-4 w-4" />
+                            </motion.div>
+                            View Resume
+                          </span>
+                          <span className="absolute inset-0 -z-0 bg-gradient-to-r from-orange-600 to-orange-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                        </a>
+
+                        {/* Download Resume Button */}
+                        <button
+                          onClick={handleDownloadResume}
+                          disabled={isDownloading}
+                          className={cn(
+                            'group bg-surface text-accent hover:bg-accent-soft relative cursor-pointer overflow-hidden rounded-md border-2 border-orange-500 px-4 py-2 text-sm font-medium whitespace-nowrap shadow-md transition-all hover:scale-105 hover:shadow-lg active:scale-95',
+                            isDownloading &&
+                              'cursor-not-allowed opacity-50 hover:scale-100'
+                          )}
+                        >
+                          <span className="flex items-center gap-2">
+                            <motion.div
+                              animate={
+                                isDownloading
+                                  ? {
+                                      y: [0, -5, 0],
+                                      scale: [1, 1.1, 1],
+                                    }
+                                  : {
+                                      y: [0, -3, 0],
+                                    }
+                              }
+                              transition={{
+                                duration: isDownloading ? 0.6 : 1.2,
+                                repeat: Infinity,
+                                ease: 'easeInOut',
+                              }}
+                            >
+                              <Download className="h-4 w-4" />
+                            </motion.div>
+                            {isDownloading
+                              ? 'Downloading...'
+                              : 'Download Resume'}
+                          </span>
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <Link
+                href={link.href}
                 className={cn(
-                  'group relative cursor-pointer text-sm font-medium transition-all active:scale-95',
+                  'group relative flex items-center text-sm font-medium transition-all active:scale-95',
                   pathname === link.href
-                    ? 'text-orange-600 font-semibold'
-                    : 'text-gray-700 hover:text-gray-900'
+                    ? 'text-accent font-semibold'
+                    : 'text-fg hover:text-fg-strong'
                 )}
               >
                 <span className="relative flex items-center gap-1.5">
                   {link.icon && (
                     <motion.div
                       whileHover={{ y: -2 }}
-                      transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                      transition={{
+                        type: 'spring',
+                        stiffness: 400,
+                        damping: 10,
+                      }}
                     >
                       <link.icon className="h-4 w-4" />
                     </motion.div>
@@ -125,116 +258,17 @@ export default function NavMenu() {
                     <motion.span
                       layoutId="activeNav"
                       className="absolute -bottom-1 left-0 h-0.5 w-full bg-gradient-to-r from-orange-500 to-orange-600"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      transition={{
+                        type: 'spring',
+                        stiffness: 380,
+                        damping: 30,
+                      }}
                     />
                   ) : (
                     <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gradient-to-r from-orange-500 to-orange-600 transition-all duration-300 group-hover:w-full" />
                   )}
                 </span>
-              </button>
-
-              <AnimatePresence>
-                {showResumeButtons && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute left-1/2 top-full z-50 mt-2 flex -translate-x-1/2 flex-col gap-2 rounded-lg bg-white p-3 shadow-xl ring-1 ring-gray-200"
-                  >
-                    {/* View Resume Button */}
-                    <a
-                      href="/resume"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setShowResumeButtons(false)}
-                      className="group relative cursor-pointer overflow-hidden whitespace-nowrap rounded-md bg-gradient-to-r from-orange-500 to-orange-600 px-4 py-2 text-sm font-medium text-white shadow-md transition-all hover:scale-105 hover:shadow-lg active:scale-95"
-                    >
-                      <span className="relative z-10 flex items-center gap-2">
-                        <motion.div
-                          animate={{
-                            scale: [1, 1.1, 1],
-                          }}
-                          transition={{
-                            duration: 1.5,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                          }}
-                        >
-                          <FileText className="h-4 w-4" />
-                        </motion.div>
-                        View Resume
-                      </span>
-                      <span className="absolute inset-0 -z-0 bg-gradient-to-r from-orange-600 to-orange-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                    </a>
-
-                    {/* Download Resume Button */}
-                    <button
-                      onClick={handleDownloadResume}
-                      disabled={isDownloading}
-                      className={cn(
-                        "group relative cursor-pointer overflow-hidden whitespace-nowrap rounded-md border-2 border-orange-500 bg-white px-4 py-2 text-sm font-medium text-orange-600 shadow-md transition-all hover:scale-105 hover:bg-orange-50 hover:shadow-lg active:scale-95",
-                        isDownloading && "opacity-50 cursor-not-allowed hover:scale-100"
-                      )}
-                    >
-                      <span className="flex items-center gap-2">
-                        <motion.div
-                          animate={
-                            isDownloading
-                              ? {
-                                  y: [0, -5, 0],
-                                  scale: [1, 1.1, 1],
-                                }
-                              : {
-                                  y: [0, -3, 0],
-                                }
-                          }
-                          transition={{
-                            duration: isDownloading ? 0.6 : 1.2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                          }}
-                        >
-                          <Download className="h-4 w-4" />
-                        </motion.div>
-                        {isDownloading ? 'Downloading...' : 'Download Resume'}
-                      </span>
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          ) : (
-            <Link
-              href={link.href}
-              className={cn(
-                'group relative text-sm font-medium transition-all active:scale-95',
-                pathname === link.href
-                  ? 'text-orange-600 font-semibold'
-                  : 'text-gray-700 hover:text-gray-900'
-              )}
-            >
-              <span className="relative flex items-center gap-1.5">
-                {link.icon && (
-                  <motion.div
-                    whileHover={{ y: -2 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-                  >
-                    <link.icon className="h-4 w-4" />
-                  </motion.div>
-                )}
-                {link.label}
-                {pathname === link.href ? (
-                  <motion.span
-                    layoutId="activeNav"
-                    className="absolute -bottom-1 left-0 h-0.5 w-full bg-gradient-to-r from-orange-500 to-orange-600"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
-                ) : (
-                  <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gradient-to-r from-orange-500 to-orange-600 transition-all duration-300 group-hover:w-full" />
-                )}
-              </span>
-            </Link>
+              </Link>
             )}
           </motion.div>
         ))}

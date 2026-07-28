@@ -1,27 +1,27 @@
-"use client";
+'use client';
 
-import { useState, useRef, KeyboardEvent } from "react";
-import { motion } from "framer-motion";
+import { useState, useRef, KeyboardEvent } from 'react';
+import { motion } from 'framer-motion';
 
 interface MessageInputProps {
   onSendMessage: (message: string) => void;
 }
 
 const MessageInput = ({ onSendMessage }: MessageInputProps) => {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [isRecording, setIsRecording] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSend = () => {
     if (message.trim()) {
       onSendMessage(message.trim());
-      setMessage("");
+      setMessage('');
       inputRef.current?.focus();
     }
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
@@ -30,7 +30,7 @@ const MessageInput = ({ onSendMessage }: MessageInputProps) => {
   const handleVoiceInput = () => {
     // TODO: Implement voice input in Step 22
     setIsRecording(!isRecording);
-    alert("Voice input will be implemented in Step 22!");
+    alert('Voice input will be implemented in Step 22!');
   };
 
   return (
@@ -38,17 +38,17 @@ const MessageInput = ({ onSendMessage }: MessageInputProps) => {
       {/* Voice Input Button */}
       <motion.button
         onClick={handleVoiceInput}
-        className={`p-3 rounded-lg transition-colors ${
+        className={`rounded-lg p-3 transition-colors ${
           isRecording
-            ? "bg-red-500 text-white"
-            : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700"
+            ? 'bg-red-500 text-white'
+            : 'bg-surface-2 text-muted hover:bg-surface-2'
         }`}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         title="Voice input (coming in Step 22)"
       >
         <svg
-          className="w-5 h-5"
+          className="h-5 w-5"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -63,18 +63,18 @@ const MessageInput = ({ onSendMessage }: MessageInputProps) => {
       </motion.button>
 
       {/* Text Input */}
-      <div className="flex-1 relative">
+      <div className="relative flex-1">
         <textarea
           ref={inputRef}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Type your message..."
-          className="w-full px-4 py-3 pr-12 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 max-h-32"
+          className="bg-surface-2 text-fg-strong max-h-32 w-full resize-none rounded-lg px-4 py-3 pr-12 focus:ring-2 focus:ring-blue-500 focus:outline-none"
           rows={1}
           style={{
-            minHeight: "48px",
-            maxHeight: "128px",
+            minHeight: '48px',
+            maxHeight: '128px',
           }}
         />
         {/* Character count or typing indicator can go here */}
@@ -84,16 +84,16 @@ const MessageInput = ({ onSendMessage }: MessageInputProps) => {
       <motion.button
         onClick={handleSend}
         disabled={!message.trim()}
-        className={`p-3 rounded-lg transition-colors ${
+        className={`rounded-lg p-3 transition-colors ${
           message.trim()
-            ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:shadow-lg"
-            : "bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed"
+            ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:shadow-lg'
+            : 'bg-surface-2 text-muted cursor-not-allowed'
         }`}
         whileHover={message.trim() ? { scale: 1.05 } : {}}
         whileTap={message.trim() ? { scale: 0.95 } : {}}
       >
         <svg
-          className="w-5 h-5"
+          className="h-5 w-5"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

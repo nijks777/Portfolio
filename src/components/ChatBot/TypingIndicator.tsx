@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 const TypingIndicator = () => {
   return (
@@ -9,12 +9,12 @@ const TypingIndicator = () => {
       animate={{ opacity: 1, y: 0 }}
       className="flex justify-start"
     >
-      <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl px-4 py-3 shadow-sm">
+      <div className="bg-surface-2 rounded-2xl px-4 py-3 shadow-sm">
         <div className="flex items-center gap-1">
           {[0, 1, 2].map((index) => (
             <motion.div
               key={index}
-              className="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full"
+              className="bg-muted h-2 w-2 rounded-full"
               animate={{
                 y: [0, -8, 0],
               }}
@@ -22,7 +22,7 @@ const TypingIndicator = () => {
                 duration: 0.6,
                 repeat: Infinity,
                 delay: index * 0.15,
-                ease: "easeInOut",
+                ease: 'easeInOut',
               }}
             />
           ))}

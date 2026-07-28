@@ -65,12 +65,44 @@ export default function ContactPage() {
   const floatingTransition = {
     duration: 3,
     repeat: Infinity,
-    ease: "easeInOut" as const,
+    ease: 'easeInOut' as const,
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50 pb-16 pt-32">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div className="bg-bg relative min-h-screen overflow-hidden pt-24 pb-16 sm:pt-28 lg:pt-32">
+      {/* Decorative Elements — siblings of the content, behind it. Previously
+          these sat inside the content container and pushed the page wider than
+          the viewport, which produced a horizontal scrollbar. */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+          className="from-accent to-accent-strong absolute top-1/4 -left-32 h-64 w-64 rounded-full bg-gradient-to-r opacity-30 blur-3xl"
+        />
+
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: 1,
+          }}
+          className="absolute -right-32 bottom-1/4 h-64 w-64 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 opacity-30 blur-3xl"
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
@@ -81,17 +113,18 @@ export default function ContactPage() {
           <motion.div
             animate={floatingAnimation}
             transition={floatingTransition}
-            className="mb-6 inline-block rounded-full bg-gradient-to-r from-orange-500 to-orange-600 p-4 shadow-lg"
+            className="mb-6 inline-block rounded-full bg-gradient-to-r from-orange-500 to-orange-600 p-3 shadow-lg sm:p-4"
           >
-            <Mail className="h-12 w-12 text-white" />
+            <Mail className="h-9 w-9 text-white sm:h-12 sm:w-12" />
           </motion.div>
 
-          <h1 className="mb-4 bg-gradient-to-r from-orange-600 to-orange-800 bg-clip-text text-4xl font-bold text-transparent sm:text-5xl md:text-6xl">
-            Let's Connect
+          <h1 className="text-fg-strong mb-4 text-4xl font-bold sm:text-5xl md:text-6xl">
+            Let&apos;s Connect
           </h1>
 
-          <p className="mx-auto max-w-2xl text-base text-gray-600 sm:text-lg md:text-xl">
-            Feel free to reach out through any of these channels. I'd love to hear from you!
+          <p className="text-muted mx-auto max-w-2xl text-base sm:text-lg md:text-xl">
+            Feel free to reach out through any of these channels. I&apos;d love
+            to hear from you!
           </p>
         </motion.div>
 
@@ -100,15 +133,15 @@ export default function ContactPage() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid gap-8 md:grid-cols-3"
+          className="grid gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3"
         >
           {/* Phone Card */}
           <motion.div
             variants={itemVariants}
             whileHover={{ scale: 1.05, y: -5 }}
-            className="group relative overflow-hidden rounded-2xl bg-white p-8 shadow-xl ring-1 ring-gray-100 transition-shadow hover:shadow-2xl"
+            className="group bg-surface ring-border relative overflow-hidden rounded-2xl p-6 shadow-xl ring-1 transition-shadow hover:shadow-2xl sm:p-8"
           >
-            <div className="absolute right-0 top-0 h-32 w-32 translate-x-8 -translate-y-8 rounded-full bg-gradient-to-br from-orange-100 to-orange-200 opacity-50 blur-2xl transition-all group-hover:scale-150" />
+            <div className="from-accent/30 to-accent/10 absolute top-0 right-0 h-32 w-32 translate-x-8 -translate-y-8 rounded-full bg-gradient-to-br opacity-50 blur-2xl transition-all group-hover:scale-150" />
 
             <div className="relative">
               <motion.div
@@ -119,9 +152,9 @@ export default function ContactPage() {
                 <Phone className="h-8 w-8 text-white" />
               </motion.div>
 
-              <h3 className="mb-2 text-xl font-bold text-gray-900">Phone</h3>
+              <h3 className="text-fg-strong mb-2 text-xl font-bold">Phone</h3>
 
-              <p className="mb-4 text-xl font-semibold text-orange-600 sm:text-2xl">
+              <p className="text-accent mb-4 text-xl font-semibold sm:text-2xl">
                 {contactInfo.phone}
               </p>
 
@@ -140,7 +173,7 @@ export default function ContactPage() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => copyToClipboard(contactInfo.phone, 'phone')}
-                  className="cursor-pointer rounded-lg border-2 border-green-500 bg-white px-4 py-3 text-green-600 transition-all hover:bg-green-50"
+                  className="bg-surface hover:bg-surface-hover cursor-pointer rounded-lg border-2 border-green-500 px-4 py-3 text-green-600 transition-all"
                 >
                   {copiedField === 'phone' ? (
                     <Check className="h-4 w-4" />
@@ -156,9 +189,9 @@ export default function ContactPage() {
           <motion.div
             variants={itemVariants}
             whileHover={{ scale: 1.05, y: -5 }}
-            className="group relative overflow-hidden rounded-2xl bg-white p-8 shadow-xl ring-1 ring-gray-100 transition-shadow hover:shadow-2xl"
+            className="group bg-surface ring-border relative overflow-hidden rounded-2xl p-6 shadow-xl ring-1 transition-shadow hover:shadow-2xl sm:p-8"
           >
-            <div className="absolute right-0 top-0 h-32 w-32 translate-x-8 -translate-y-8 rounded-full bg-gradient-to-br from-orange-100 to-orange-200 opacity-50 blur-2xl transition-all group-hover:scale-150" />
+            <div className="from-accent/30 to-accent/10 absolute top-0 right-0 h-32 w-32 translate-x-8 -translate-y-8 rounded-full bg-gradient-to-br opacity-50 blur-2xl transition-all group-hover:scale-150" />
 
             <div className="relative">
               <motion.div
@@ -169,9 +202,9 @@ export default function ContactPage() {
                 <Mail className="h-8 w-8 text-white" />
               </motion.div>
 
-              <h3 className="mb-2 text-xl font-bold text-gray-900">Email</h3>
+              <h3 className="text-fg-strong mb-2 text-xl font-bold">Email</h3>
 
-              <p className="mb-4 break-all text-base font-semibold text-orange-600 sm:text-lg">
+              <p className="text-accent mb-4 text-base font-semibold break-all sm:text-lg">
                 {contactInfo.email}
               </p>
 
@@ -190,7 +223,7 @@ export default function ContactPage() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => copyToClipboard(contactInfo.email, 'email')}
-                  className="cursor-pointer rounded-lg border-2 border-orange-500 bg-white px-4 py-3 text-orange-600 transition-all hover:bg-orange-50"
+                  className="bg-surface text-accent hover:bg-accent-soft cursor-pointer rounded-lg border-2 border-orange-500 px-4 py-3 transition-all"
                 >
                   {copiedField === 'email' ? (
                     <Check className="h-4 w-4" />
@@ -206,9 +239,9 @@ export default function ContactPage() {
           <motion.div
             variants={itemVariants}
             whileHover={{ scale: 1.05, y: -5 }}
-            className="group relative overflow-hidden rounded-2xl bg-white p-8 shadow-xl ring-1 ring-gray-100 transition-shadow hover:shadow-2xl"
+            className="group bg-surface ring-border relative overflow-hidden rounded-2xl p-6 shadow-xl ring-1 transition-shadow hover:shadow-2xl sm:p-8"
           >
-            <div className="absolute right-0 top-0 h-32 w-32 translate-x-8 -translate-y-8 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 opacity-50 blur-2xl transition-all group-hover:scale-150" />
+            <div className="absolute top-0 right-0 h-32 w-32 translate-x-8 -translate-y-8 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 opacity-50 blur-2xl transition-all group-hover:scale-150" />
 
             <div className="relative">
               <motion.div
@@ -219,9 +252,11 @@ export default function ContactPage() {
                 <Linkedin className="h-8 w-8 text-white" />
               </motion.div>
 
-              <h3 className="mb-2 text-xl font-bold text-gray-900">LinkedIn</h3>
+              <h3 className="text-fg-strong mb-2 text-xl font-bold">
+                LinkedIn
+              </h3>
 
-              <p className="mb-4 text-sm text-gray-600">
+              <p className="text-muted mb-4 text-sm">
                 Connect with me professionally
               </p>
 
@@ -239,8 +274,10 @@ export default function ContactPage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => copyToClipboard(contactInfo.linkedin, 'linkedin')}
-                  className="cursor-pointer rounded-lg border-2 border-blue-600 bg-white px-4 py-3 text-blue-600 transition-all hover:bg-blue-50"
+                  onClick={() =>
+                    copyToClipboard(contactInfo.linkedin, 'linkedin')
+                  }
+                  className="bg-surface text-accent hover:bg-surface-hover cursor-pointer rounded-lg border-2 border-blue-600 px-4 py-3 transition-all"
                 >
                   {copiedField === 'linkedin' ? (
                     <Check className="h-4 w-4" />
@@ -252,36 +289,6 @@ export default function ContactPage() {
             </div>
           </motion.div>
         </motion.div>
-
-        {/* Decorative Elements */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <motion.div
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.3, 0.5, 0.3],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            className="absolute -left-32 top-1/4 h-64 w-64 rounded-full bg-gradient-to-r from-orange-300 to-orange-400 opacity-30 blur-3xl"
-          />
-
-          <motion.div
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.3, 0.5, 0.3],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: 1,
-            }}
-            className="absolute -right-32 bottom-1/4 h-64 w-64 rounded-full bg-gradient-to-r from-blue-300 to-blue-400 opacity-30 blur-3xl"
-          />
-        </div>
       </div>
     </div>
   );

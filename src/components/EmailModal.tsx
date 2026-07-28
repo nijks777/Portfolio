@@ -12,7 +12,11 @@ interface EmailModalProps {
   onSubmit: (email: string) => Promise<void>;
 }
 
-export default function EmailModal({ isOpen, onClose, onSubmit }: EmailModalProps) {
+export default function EmailModal({
+  isOpen,
+  onClose,
+  onSubmit,
+}: EmailModalProps) {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -48,7 +52,10 @@ export default function EmailModal({ isOpen, onClose, onSubmit }: EmailModalProp
       setEmail('');
       onClose();
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to submit request. Please try again.';
+      const errorMessage =
+        err instanceof Error
+          ? err.message
+          : 'Failed to submit request. Please try again.';
       setError(errorMessage);
     } finally {
       setIsSubmitting(false);
@@ -89,14 +96,14 @@ export default function EmailModal({ isOpen, onClose, onSubmit }: EmailModalProp
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: 'spring', duration: 0.3 }}
-              className="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl"
+              className="bg-surface relative w-full max-w-md rounded-2xl p-6 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
               <button
                 onClick={handleClose}
                 disabled={isSubmitting}
-                className="absolute right-4 top-4 rounded-full p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 disabled:opacity-50"
+                className="text-muted hover:bg-surface-2 hover:text-muted absolute top-4 right-4 rounded-full p-1 transition-colors disabled:opacity-50"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -107,15 +114,22 @@ export default function EmailModal({ isOpen, onClose, onSubmit }: EmailModalProp
                   <Mail className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900">Get My Resume</h2>
-                  <p className="text-sm text-gray-600">Enter your email to receive my resume</p>
+                  <h2 className="text-fg-strong text-2xl font-bold">
+                    Get My Resume
+                  </h2>
+                  <p className="text-muted text-sm">
+                    Enter your email to receive my resume
+                  </p>
                 </div>
               </div>
 
               {/* Form */}
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="email"
+                    className="text-fg mb-2 block text-sm font-medium"
+                  >
                     Email Address
                   </label>
                   <input
@@ -129,8 +143,9 @@ export default function EmailModal({ isOpen, onClose, onSubmit }: EmailModalProp
                     placeholder="your.email@example.com"
                     disabled={isSubmitting}
                     className={cn(
-                      'w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 transition-all focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 disabled:cursor-not-allowed disabled:opacity-50',
-                      error && 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
+                      'border-border-strong text-fg-strong w-full rounded-lg border px-4 py-3 placeholder-gray-400 transition-all focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+                      error &&
+                        'border-red-500 focus:border-red-500 focus:ring-red-500/20'
                     )}
                   />
                   {error && (
@@ -150,7 +165,7 @@ export default function EmailModal({ isOpen, onClose, onSubmit }: EmailModalProp
                     type="button"
                     onClick={handleClose}
                     disabled={isSubmitting}
-                    className="flex-1 rounded-lg border-2 border-gray-300 px-4 py-3 font-medium text-gray-700 transition-all hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="border-border-strong text-fg hover:bg-surface-2 flex-1 rounded-lg border-2 px-4 py-3 font-medium transition-all disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     Cancel
                   </button>
@@ -175,7 +190,7 @@ export default function EmailModal({ isOpen, onClose, onSubmit }: EmailModalProp
               </form>
 
               {/* Footer Note */}
-              <p className="mt-4 text-center text-xs text-gray-500">
+              <p className="text-muted mt-4 text-center text-xs">
                 Your email will only be used to send you my resume.
               </p>
             </motion.div>

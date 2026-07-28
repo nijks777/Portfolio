@@ -1,26 +1,75 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
+/*
+ * Dark-first theme.
+ *
+ * :root holds the dark palette (the default). The light palette is applied
+ * only when the visitor's OS explicitly asks for light. Every component styles
+ * against these semantic tokens — bg / surface / border / fg / muted / accent —
+ * rather than raw Tailwind greys, so both modes stay in sync automatically.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0a0c10;
+  --surface: #12161d;
+  --surface-2: #171c25;
+  --surface-hover: #1c222c;
+  --border: #242b36;
+  --border-strong: #333c4a;
+  --fg: #e7eaf0;
+  --fg-strong: #ffffff;
+  --muted: #8d97a7;
+  --accent: #f97316;
+  --accent-strong: #fb8a3c;
+  --accent-soft: rgba(249, 115, 22, 0.12);
+  --accent-contrast: #0a0c10;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #f8fafc;
+    --surface-hover: #f1f5f9;
+    --border: #e2e8f0;
+    --border-strong: #cbd5e1;
+    --fg: #0f172a;
+    --fg-strong: #020617;
+    --muted: #64748b;
+    --accent: #ea580c;
+    --accent-strong: #c2410c;
+    --accent-soft: rgba(234, 88, 12, 0.08);
+    --accent-contrast: #ffffff;
+  }
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-hover: var(--surface-hover);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg: var(--fg);
+  --color-fg-strong: var(--fg-strong);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-contrast: var(--accent-contrast);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  /* Previously hard-coded to Arial, which silently overrode the Geist fonts
+     loaded in layout.tsx. */
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+::selection {
+  background: var(--accent);
+  color: var(--accent-contrast);
 }
