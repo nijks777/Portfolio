@@ -12,7 +12,37 @@ import {
   Linkedin,
 } from 'lucide-react';
 
+// Career start: 5 February 2024 (month is 0-indexed, so 1 = February)
+const CAREER_START_DATE = new Date(2024, 1, 5);
+
+function getExperienceDuration(startDate: Date = CAREER_START_DATE): string {
+  const now = new Date();
+
+  let years = now.getFullYear() - startDate.getFullYear();
+  let months = now.getMonth() - startDate.getMonth();
+
+  // Day of month hasn't been reached yet this month, so the month isn't complete
+  if (now.getDate() < startDate.getDate()) {
+    months -= 1;
+  }
+
+  if (months < 0) {
+    years -= 1;
+    months += 12;
+  }
+
+  if (years < 0) return '0 months';
+
+  const parts: string[] = [];
+  if (years > 0) parts.push(`${years} ${years === 1 ? 'year' : 'years'}`);
+  if (months > 0) parts.push(`${months} ${months === 1 ? 'month' : 'months'}`);
+
+  return parts.length > 0 ? parts.join(' ') : 'less than a month';
+}
+
 export default function Home() {
+  const experience = getExperienceDuration();
+
   return (
     <div className="bg-bg relative min-h-screen overflow-x-hidden">
       {/* Animated Background Elements */}
@@ -115,8 +145,8 @@ export default function Home() {
               className="text-muted max-w-xl text-base leading-relaxed sm:text-lg"
             >
               Software Developer with{' '}
-              <span className="text-accent font-semibold">
-                2 years 6 months
+              <span className="text-accent font-semibold" suppressHydrationWarning>
+                {experience}
               </span>{' '}
               of professional experience building applications that run at
               scale. Currently at{' '}
